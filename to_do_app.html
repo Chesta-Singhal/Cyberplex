@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do Web App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0f4c75;
+    }
+
+    .todo-container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: #0f4c75;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #e0f7fa;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .actions button {
+      background: transparent;
+      color: #0f4c75;
+      margin-left: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+    }
+
+    @media (max-width: 600px) {
+      input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>To-Do List</h1>
+
+  <div class="todo-container">
+    <input type="text" id="taskInput" placeholder="Enter a new task..." />
+    <button onclick="addTask()">Add Task</button>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    function displayTasks() {
+      const taskList = document.getElementById('taskList');
+      taskList.innerHTML = "";
+
+      tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span contenteditable="true" onblur="editTask(${index}, this.innerText)">${task}</span>
+          <div class="actions">
+            <button onclick="deleteTask(${index})">🗑️</button>
+          </div>
+        `;
+        taskList.appendChild(li);
+      });
+
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function addTask() {
+      const input = document.getElementById('taskInput');
+      if (input.value.trim() !== "") {
+        tasks.push(input.value.trim());
+        input.value = "";
+        displayTasks();
+      }
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      displayTasks();
+    }
+
+    function editTask(index, newValue) {
+      tasks[index] = newValue.trim();
+      displayTasks();
+    }
+
+    // Load existing tasks on page load
+    displayTasks();
+  </script>
+
+</body>
+</html>
