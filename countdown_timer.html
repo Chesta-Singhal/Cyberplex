@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown Timer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #0f4c75;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+
+    #display {
+      font-size: 40px;
+      color: #1b262c;
+      margin-top: 20px;
+    }
+
+    #message {
+      font-size: 20px;
+      color: red;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 22px;
+      }
+      input, button {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Countdown Timer</h1>
+
+  <label>Enter Time (seconds or minutes):</label><br>
+  <input type="number" id="timeInput" placeholder="Enter number" />
+  <select id="unit">
+    <option value="seconds">Seconds</option>
+    <option value="minutes">Minutes</option>
+  </select><br>
+
+  <button onclick="startCountdown()">Start Countdown</button>
+
+  <div id="display">00:00</div>
+  <div id="message"></div>
+
+  <script>
+    let interval;
+
+    function startCountdown() {
+      clearInterval(interval); // clear previous timers
+      let time = parseInt(document.getElementById("timeInput").value);
+      const unit = document.getElementById("unit").value;
+
+      if (unit === "minutes") {
+        time *= 60;
+      }
+
+      if (isNaN(time) || time <= 0) {
+        alert("Please enter a valid time.");
+        return;
+      }
+
+      const display = document.getElementById("display");
+      const message = document.getElementById("message");
+
+      interval = setInterval(() => {
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+
+        display.textContent =
+          (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+        if (time <= 0) {
+          clearInterval(interval);
+          message.textContent = "⏰ Time's up!";
+        }
+
+        time--;
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
