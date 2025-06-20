@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frontend Quiz App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #e3f2fd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .quiz-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .quiz-box h2 {
+      color: #0f4c75;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      padding: 10px 15px;
+      margin: 10px 0;
+      border: 1px solid #0f4c75;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .option:hover {
+      background: #d9ecf2;
+    }
+
+    .option.correct {
+      background: #a5d6a7;
+      border-color: green;
+    }
+
+    .option.wrong {
+      background: #ef9a9a;
+      border-color: red;
+    }
+
+    #nextBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #0f4c75;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media (max-width: 500px) {
+      .quiz-box {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-box">
+    <h2 id="question">Question text</h2>
+    <div id="options"></div>
+    <button id="nextBtn" onclick="nextQuestion()">Next</button>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What does HTML stand for?",
+        options: ["Hyper Text Markup Language", "High Text Machine Language", "Hyper Tabular Markup Language", "None of these"],
+        answer: "Hyper Text Markup Language"
+      },
+      {
+        question: "Which tag is used for inserting a line break?",
+        options: ["<br>", "<lb>", "<break>", "<line>"],
+        answer: "<br>"
+      },
+      {
+        question: "Which CSS property controls text size?",
+        options: ["font-style", "text-size", "font-size", "text-style"],
+        answer: "font-size"
+      },
+      {
+        question: "Inside which HTML element do we put the JavaScript?",
+        options: ["<js>", "<scripting>", "<script>", "<javascript>"],
+        answer: "<script>"
+      },
+      {
+        question: "Which company developed JavaScript?",
+        options: ["Mozilla", "Netscape", "Sun Microsystems", "Oracle"],
+        answer: "Netscape"
+      }
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function loadQuestion() {
+      clearOptions();
+      const currentQ = questions[currentIndex];
+      questionEl.textContent = currentQ.question;
+      currentQ.options.forEach(option => {
+        const btn = document.createElement('div');
+        btn.classList.add('option');
+        btn.textContent = option;
+        btn.onclick = () => selectOption(btn, currentQ.answer);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedBtn, correctAnswer) {
+      const allOptions = document.querySelectorAll('.option');
+      allOptions.forEach(btn => {
+        btn.onclick = null;
+        if (btn.textContent === correctAnswer) {
+          btn.classList.add('correct');
+        } else if (btn === selectedBtn) {
+          btn.classList.add('wrong');
+        }
+      });
+      if (selectedBtn.textContent === correctAnswer) {
+        score++;
+      }
+      nextBtn.style.display = 'inline-block';
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      nextBtn.style.display = 'none';
+
+      if (currentIndex < questions.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function clearOptions() {
+      optionsEl.innerHTML = '';
+    }
+
+    function showResult() {
+      questionEl.textContent = `Quiz Completed! 🎉`;
+      optionsEl.innerHTML = `<p>Your Score: ${score} / ${questions.length}</p>`;
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
