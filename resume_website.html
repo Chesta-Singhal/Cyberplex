@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Resume Website</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background: #0f4c75;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    nav {
+      background: #3282b8;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #0f4c75;
+    }
+    .skills span, .projects li, .contact p {
+      display: block;
+      margin: 8px 0;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #0f4c75;
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 22px;
+      }
+      nav {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Resume</h1>
+    <p>Web Developer | JavaScript Enthusiast | Creative Designer</p>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am a passionate web developer skilled in creating responsive and modern websites using HTML, CSS, and JavaScript. I love building user-friendly UIs and bringing ideas to life through code.</p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+      <span>HTML5</span>
+      <span>CSS3</span>
+      <span>JavaScript</span>
+      <span>Responsive Design</span>
+      <span>Git & GitHub</span>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul class="projects">
+      <li>My Resume Website</li>
+      <li>To-Do App with LocalStorage</li>
+      <li>Weather App using API</li>
+      <li>Countdown Timer using JS</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact">
+      <p>Email: yourname@example.com</p>
+      <p>Phone: +91-1234567890</p>
+      <p>LinkedIn: linkedin.com/in/yourprofile</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 My Resume | All rights reserved</p>
+  </footer>
+
+</body>
+</html>
 
